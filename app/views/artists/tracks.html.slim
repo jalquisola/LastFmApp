@@ -1,0 +1,19 @@
+div class="jumbotron"
+  h2 = "Top Tracks by #{params[:name]}"
+  div class="row"
+    table class="table table-hover table-bordered"
+      thead
+        tr
+          th Rank #
+          th Track Logo
+          th Track Name
+      tbody
+        - @tracks.each do |track|
+          tr
+            th = track.try(:[], "@attr").try(:[], "rank")
+            th
+              a href="/" target="_blank"
+                img class="img-circle" src=track["image"].select{|image| image['size']=='medium'}.first["#text"]
+            th = track["name"]
+  div class="row"
+    = paginate @paginatable_array
