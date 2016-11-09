@@ -12,5 +12,23 @@ html lang='en'
     = javascript_include_tag 'application'
     = csrf_meta_tags
   body
-    = yield
+    nav class="navbar navbar-default navbar-fixed-top"
+      div class="container"
+        div class="navbar-header"
+          button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"
+            span class="sr-only" Toggle Navigation
+            span class="icon-bar"
+            span class="icon-bar"
+            span class="icon-bar"
+        div id="navbar" class="navbar-collapse collapse"
+          ul class="nav navbar-nav"
+            li class="#{params[:action] == "home" ? 'active' : ''}"
+              a href=root_url Home
+            li class="#{params[:action] == "show" ? 'active' : ''}"
+              a href=artists_path(country: 'United States', page: 1, limit:5) Top Artists
+            li class="#{params[:action] == "tracks" ? 'active' : ''}"
+              a href=artist_tracks_path(name: 'Adele', page: 1, limit:5) Top Tracks
+
+    div class="container"
+      = yield
 
