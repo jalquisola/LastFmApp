@@ -78,5 +78,21 @@ describe LastFmService do
       end
     end
 
+    context "when country param is United States, limit param is 10, and page param is 2" do
+      subject(:api_response){resource.get_top_artists_by_geo('United States', 2, 10)}
+
+      it "returns a hash with topartists key" do
+        expect(api_response.keys).to include("topartists")
+      end
+
+      xit "should have 10 artists" do
+        expect(api_response["topartists"]["artist"].size).to eq 10
+      end
+
+      it "should contain country in the response" do
+        expect(api_response["topartists"]["@attr"]).to include({"country"=>"United States", "perPage"=>"10"})
+      end
+    end
+
   end
 end
