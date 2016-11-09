@@ -1,28 +1,17 @@
-div class="site-wrapper"
-  div class="site-wrapper-inner"
-    div class="cover-container"
-      div class="masthead clearfix"
-        div class="inner"
-          h3 class="masthead-brand" LastFMApp
-          nav
-            ul class="nav masthead-nav"
-              li
-                a href=root_url Home
-              li class="active"
-                a href="#" Top Artists
-
-      div class="inner cover"
-        table class="table table-hover"
-          thead
-            tr
-              th #
-              th Band Logo
-              th Band Name
-          tbody
-            - @artists.each do |artist|
-              tr
-                th = 1
-                th = artist["name"]
-                th
-                  a href="_target"
-                    img class="img-circle" src=artist["image"].select{|image| image['size']=='medium'}.first["#text"]
+div class="jumbotron"
+  h2 = "Top Artists in #{params[:country]}"
+  div class="row"
+    table class="table table-hover table-bordered"
+      thead
+        tr
+          th Band Logo
+          th Band Name
+      tbody
+        - @artists.each do |artist|
+          tr
+            th
+              a href=artist_tracks_path(name: artist.name, mbid: artist.mbid) target="_blank"
+                img class="img-circle" src=artist.image_url('medium')
+            th = artist.name
+  div class="row"
+    = paginate @paginatable_array
