@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe ApiResponse::GeoTopArtists, type: :model do
-  #pending "add some examples to (or delete) #{__FILE__}"
-  subject{ ApiResponse::GeoTopArtists(para) }
   let(:resource){ ApiResponse::GeoTopArtists }
+
   describe "#new" do
     context "when attributes are nil" do
       it "raise an error" do

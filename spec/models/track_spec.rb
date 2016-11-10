@@ -87,19 +87,19 @@ RSpec.describe Track, type: :model do
   describe "#rank" do
     context "when atattr attribute is missing" do
       it "returns nil" do
-        expect(Track.new({})).to eq nil
+        expect(Track.new({}).rank).to eq nil
       end
     end
 
     context "when rank attribute is missing" do
       it "returns nil" do
-        expect(Track.new({'atattr' => {}})).to eq nil
+        expect(Track.new({'atattr' => {}}).rank).to eq nil
       end
     end
 
     context "when rank attribute is valid" do
       it "returns 1" do
-        expect(Track.new({'atattr' => {'rank' => '1'}})).to eq '1'
+        expect(Track.new({'atattr' => {'rank' => '1'}}).rank).to eq '1'
       end
     end
   end

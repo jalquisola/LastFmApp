@@ -12,11 +12,6 @@ RSpec.describe ArtistsController, type: :controller do
       get :show, country: "Singapore"
       expect(response).to render_template("show")
     end
-
-    xit "loads all of the artists into @artists" do
-      get :show, country: "Singapore"
-      expect(assigns(:@artists)).to match_array([post1, post2])
-    end
   end
 
   describe "GET #tracks" do

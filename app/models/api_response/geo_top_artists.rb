@@ -1,28 +1,14 @@
 module ApiResponse
-  class GeoTopArtists
-    attr_reader :top_artists
-
+  class GeoTopArtists < Base
     def initialize(data)
-      raise ArgumentError.new("data params should not be nil") unless data
-
-      @data = data
+      super(data, "topartists")
       @top_artists = data.try(:[], "topartists")
     end
 
     def artists
-      Array(@top_artists.try(:[], 'artist')).map{|artist| Artist.new(artist)}
-    end
-
-    def total_count
-      @top_artists.try(:[], '@attr').try(:[], 'total').to_i
-    end
-
-    def has_error?
-      @data.try(:[], "error").present?
-    end
-
-    def error_message
-      has_error? ? @data.try(:[], "message") : ""
+      #There is bug in Last.FM API Response, it returns more items than specified limit.
+      #Thus, we get the first n elements of the array based on per_page.
+      Array(@top_artists.try(:[], "artist")).first(per_page).map{|artist| Artist.new(artist)}
     end
   end
 end

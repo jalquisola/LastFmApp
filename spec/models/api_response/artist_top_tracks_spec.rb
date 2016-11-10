@@ -110,5 +110,4 @@ RSpec.describe ApiResponse::ArtistTopTracks, type: :model do
       end
     end
   end
-
 end
