@@ -1,17 +1,22 @@
 div class="jumbotron"
-  h2 = "Top Artists in #{params[:country]}"
+  h1 ="Top Artists in #{params[:country]}"
+
+  p
+    select class="form-control chosen-select" aria-describedby="sizing-addon1" data-placeholder="Select country..."
+      option
+      - ISO3166::Country.all.map(&:name).each do |name|
+        - if params[:country] == name
+          option selected="selected" = name
+        - else
+          option = name
+
   div class="row"
-    table class="table table-hover table-bordered"
-      thead
-        tr
-          th Band Logo
-          th Band Name
-      tbody
-        - @artists.each do |artist|
-          tr
-            th
-              a href=artist_tracks_path(name: artist.name, mbid: artist.mbid) target="_blank"
-                img class="img-circle" src=artist.image_url('medium')
-            th = artist.name
+    - @artists.each do |artist|
+        div class="col-xs-6 col-md-2"
+          a class="thumbnail" href=artist_tracks_path(name: artist.name, mbid: artist.mbid) target="_blank"
+            img src=artist.image_url('large')
+          div class="caption"
+            h3 =artist.name
+
   div class="row"
     = paginate @paginatable_array

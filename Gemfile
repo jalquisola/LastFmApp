@@ -18,6 +18,8 @@ gem 'bootstrap-sass', '~>3.3.6'
 gem 'slim-rails'
 gem 'rest-client'
 gem 'kaminari'
+gem 'chosen-rails'
+gem 'countries'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

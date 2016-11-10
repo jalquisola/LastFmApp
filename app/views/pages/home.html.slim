@@ -1,5 +1,11 @@
 div class="jumbotron"
-  h1 class="cover-heading" Are you bored?
+  h1 class="cover-heading" Looking for your favorite artists?
   p class="lead" Find me the top artists by country
   p class="lead"
-  input type="text" class="form-control" placeholder="Text input"
+  form class="form-inline"
+    div class="form-group"
+      div class="input-group input-group-large"
+        select class="form-control chosen-select" aria-describedby="sizing-addon1" data-placeholder="Select country..."
+          option
+          - ISO3166::Country.all.map(&:name).each do |name|
+            option =name
