@@ -2,35 +2,26 @@ class ArtistsController < ApplicationController
   before_action :set_pagination_params
 
   def show
-    service = LastFmService.new
+    api_response = LastFmApi::Geo.new(params[:country], @page, @limit).get_top_artists
 
-    api_response = service.get_top_artists_by_geo(params[:country], @page, @limit)
     if api_response.has_error?
       redirect_to root_url, alert: api_response.error_message
     else
       @artists = api_response.artists
-      @paginatable_array = Kaminari.paginate_array(@artists,
-                                                  total_count: api_response.total_count).
-                                                  page(@page).
-                                                  per(@limit)
+      set_paginatable_array(@artists, api_response.total_count)
     end
   end
 
   def tracks
-    service = LastFmService.new
-
-    api_response = service.get_top_tracks_by_artist(params[:name],
-                                                    params[:mbid],
-                                                    @page,
-                                                    @limit)
+    api_response = LastFmApi::Artist.new( params[:name],
+                                          params[:mbid],
+                                          @page,
+                                          @limit).get_top_tracks
     if api_response.has_error?
       redirect_to root_url, alert: @api_response[:error]
     else
       @tracks = api_response.tracks
-      @paginatable_array = Kaminari.paginate_array(@tracks,
-                                                  total_count: api_response.total_count).
-                                                  page(@page).
-                                                  per(@limit)
+      set_paginatable_array(@tracks, api_response.total_count)
     end
   end
 
@@ -39,5 +30,9 @@ class ArtistsController < ApplicationController
   def set_pagination_params
     @page  = params[:page].to_i < 1 ? 1 : params[:page].to_i
     @limit = params[:limit].to_i < 1 ? 5 : params[:limit].to_i
+  end
+
+  def set_paginatable_array(data, total)
+    @paginatable_array = Kaminari.paginate_array(data, total_count: total).page(@page).per(@limit)
   end
 end
