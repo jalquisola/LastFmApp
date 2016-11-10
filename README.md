@@ -7,7 +7,7 @@ This sample project displays Top Artists and Top Tracks using Last.FM REST API.
   3. Run: `bin/rake db:create`
 
 ## Running the app in your local
-  1. Run: `bin/rake rails s`
+  1. Run: `bin/rails s`
   2. Open [http://localhost:3000](http://localhost:3000)
 
 ## Running the tests
