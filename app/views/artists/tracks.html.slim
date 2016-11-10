@@ -1,11 +1,15 @@
 div class="jumbotron"
   h2 = "Top Tracks by #{params[:name]}"
+  hr
   div class="row"
-    - @tracks.each do |track|
-        div class="col-xs-6 col-md-2"
-          a class="thumbnail" href=track.url target="_blank"
-            img src=track.image_url('large')
-          div class="caption"
-            h3 ="#{track.rank}. #{track.name}"
+    - if @tracks.blank?
+      h2 Unable to retrieve data from Last.fm
+    - else
+      - @tracks.each do |track|
+          div class="col-xs-6 col-md-2"
+            a class="thumbnail" href=track.url target="_blank"
+              img src=track.image_url('large')
+            div class="caption"
+              h3 ="#{track.rank}. #{track.name}"
   div class="row"
     = paginate @paginatable_array
